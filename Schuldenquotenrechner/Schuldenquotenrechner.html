@@ -205,17 +205,34 @@
     <!--<script type="module" src="./App.js"></script>--><!-- removed type="module" -->
     <script type="module">
       import {oneSim, longRunSS} from './MonteCarloSim.js';
-      var out = document.getElementById('test_output');
-      var deficit = document.getElementById("regular_deficit")
+      const out = document.getElementById('test_output');
+
+      // collect parameters in a single object
+      const parms = {};
+      parms.regular_deficit = document.getElementById("regular_deficit");
+      parms.mean_growth = document.getElementById("mean_growth");
+      parms.excess_time = document.getElementById("excess_time");
+      parms.r_bar = document.getElementById("r_bar");
+      parms.excess_deficit_mean = document.getElementById("excess_deficit_mean");
+      parms.excess_amort = document.getElementById("excess_amort");
+      parms.TT = document.getElementById("TT");
+      parms.n_sim = document.getElementById("n_sim");
       
       function updateLRSS() {
         console.log("Hello from updateLRSS()!")
-        let lrss = longRunSS(2.8, deficit.value, 0.2, 1.0, 40);
-        out.innerHTML = `Long run steady state: ${lrss.toFixed(2)}%<br>`;
+        let x_prob = 1/parms.excess_time.value;
+        let lrss = longRunSS(parms.mean_growth.value, 
+          parms.regular_deficit.value, 
+          x_prob, 
+          parms.excess_deficit_mean.value, 
+          parms.excess_amort.value);
+        out.innerHTML = `Long run steady state: ${lrss.toFixed(1)}%<br>`;
       }
 
       window.onload = function() {
-        document.getElementById('regular_deficit').addEventListener('input', updateLRSS);
+        for (let parm in parms) {
+          parm.addEventListener('input', updateLRSS);
+        }
       }      
     </script>
   </div>
