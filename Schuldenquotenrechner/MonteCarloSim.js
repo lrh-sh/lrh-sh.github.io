@@ -2,9 +2,9 @@
 //
 // Robert Aue, 25.03.2024
 // 
-// Note: disturbances are assumed to follow the logistic distribution
-// to gain computational speed. It could be changed to random normal
-// deviates late on.
+// 
+// 
+// 
 
 import {randomNormal} from './RandomDistributions.js';
 
@@ -152,7 +152,7 @@ function testResult() {
 
     console.log(`Long run steady state: ${lrss}`);
     console.log(`Schuldenquote: ${oneResult.Schuldenquote}`);
-    console.log(`Schuldenquote: ${oneResult.ZinsSteuerQuote}`);
+    console.log(`Zins-Steuer-Quote: ${oneResult.ZinsSteuerQuote}`);
 
     return {
         oneMSsim: oneResult,
