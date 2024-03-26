@@ -217,6 +217,12 @@
       parms.excess_amort = document.getElementById("excess_amort");
       parms.TT = document.getElementById("TT");
       parms.n_sim = document.getElementById("n_sim");
+
+      function printParms() {
+        for (const i in parms) {
+          console.log(`${i}: ${parms[i].value}`)
+        }
+      }
       
       function updateLRSS() {
         console.log("Hello from updateLRSS()!")
@@ -230,8 +236,8 @@
       }
 
       window.onload = function() {
-        for (let parm in parms) {
-          parm.addEventListener('input', updateLRSS);
+        for (const i in parms) {
+          parms[i].addEventListener('input', updateLRSS);
         }
       }      
     </script>
