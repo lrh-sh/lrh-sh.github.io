@@ -79,17 +79,15 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         console.log(`lnx_mu = ${lnx_mu}`);
         console.log(`lnx_sd = ${lnx_sd}`);
     }
-    console.log(`Y0 = ${Yt}`);
-    console.log(`g_mean = ${g_mean}, g_sd = ${g_sd}`);
+    //console.log(`Y0 = ${Yt}`);
+    //console.log(`g_mean = ${g_mean}, g_sd = ${g_sd}`);
     
     // simulate through time - time index starts at 0 here so actual time is t+1
-    var gt;
     for (let t = 0; t < TT; t++) {
                 
         // nominales BIP
-        gt = randomNormal(g_mean, g_sd);
-        Yt *= (1 + gt);
-        console.log(`g${t} = ${gt}, Y${t} = ${Yt}`);
+        Yt *= (1 + randomNormal(g_mean, g_sd));
+        //console.log(`g${t} = ${gt}, Y${t} = ${Yt}`);
 
         
         
