@@ -217,6 +217,14 @@
         document.getElementById('regular_deficit').addEventListener('input', updateSimulation())
       }      
     </script>
+    <script>
+      function testprint() {
+        var input = document.getElementById('r_bar');
+        var out = document.getElementById('test_output');
+        out.innerHTML = `r_bar = ${input.value}`;
+      }
+      document.getElementById('r_bar').addEventListener('input', testprint())
+    </script>
   </div>
 
   </div> <!-- end row -->
