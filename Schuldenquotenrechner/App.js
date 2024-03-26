@@ -8,4 +8,6 @@ function App() {
     return 0;
 }
 
+App();
+
 export default App;
