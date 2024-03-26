@@ -10,7 +10,7 @@ function updateSimulation() {
 
 function App() {
     console.log("Hello from App()!")
-    document.getElementById('regular_deficit').addEventListener(updateSimulation())
+    document.getElementById('regular_deficit').addEventListener('input', updateSimulation())
     return 0;
 }
 
