@@ -76,8 +76,8 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         // see https://en.wikipedia.org/wiki/Log-normal_distribution
         lnx_mu = Math.log( x_mean**2 / Math.sqrt( x_mean**2 + x_sd**2 ) );
         lnx_sd = Math.sqrt( Math.log( 1 + x_sd**2/x_mean**2 ) );
-        console.log(`lnx_mu = ${lnx_mu}`);
-        console.log(`lnx_sd = ${lnx_sd}`);
+        //console.log(`lnx_mu = ${lnx_mu}`);
+        //console.log(`lnx_sd = ${lnx_sd}`);
     }
     //console.log(`Y0 = ${Yt}`);
     //console.log(`g_mean = ${g_mean}, g_sd = ${g_sd}`);
