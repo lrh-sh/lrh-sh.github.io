@@ -143,13 +143,6 @@ function longRunSS(g_mean = 2.8, deficit = 0, x_prob = 0.2, x_mean = 1.0, K = 40
 
 
 // einige Tests
-var oneResult = oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
-                       x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,
-                       i0=1.38, r0=3.0, r_bar=3.0, mat=15, tyr=10.75, 
-                       TT=10);
-console.log(oneResult.Schuldenquote);
-console.log(oneResult.ZinsSteuerQuote);
-
 function testResult() {
     var oneResult = oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0.15, 
                            x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,

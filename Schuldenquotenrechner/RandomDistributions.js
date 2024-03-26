@@ -97,7 +97,7 @@ function testRNG(n=100, fn, ...parms) {
     console.log(`Max(x)  = ${x_max}`);
 }
 
-testRNG(n=1000000, randomNormal);
-testRNG(n=1000000, randomNormal, .028, .022);
+testRNG(1000000, randomNormal);
+testRNG(1000000, randomNormal, .028, .022);
 
 export {randomNormal, randomLogistic, randomLogLogistic};
