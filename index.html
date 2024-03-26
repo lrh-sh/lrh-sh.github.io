@@ -110,8 +110,8 @@
               </li>
               <li>
                 <label for="r_bar">Nominalzins</label>
-                <output id="r_bar.output" for="r_bar">3</output>%<br/>
-                <input type="range" id="r_bar" name="r_bar" list="r_bar.markers" min="0" max="5" step="0.1" value="3" oninput="document.getElementById('r_bar.output').value = this.value"/>
+                <output id="r_bar.output" for="r_bar">3.0</output>%<br/>
+                <input type="range" id="r_bar" name="r_bar" list="r_bar.markers" min="0" max="5" step="0.1" value="3" oninput="document.getElementById('r_bar.output').value = parseFloat(this.value).toFixed(1)"/>
                 <datalist id="r_bar.markers">
                   <option value="0" label="0%"></option>
                   <option value="1"></option>
