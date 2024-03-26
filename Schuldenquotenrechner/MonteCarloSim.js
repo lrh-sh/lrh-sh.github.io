@@ -158,5 +158,5 @@ function testResult() {
     }
 }
     
-
+export {oneSim, longRunSS};
 export default testResult;

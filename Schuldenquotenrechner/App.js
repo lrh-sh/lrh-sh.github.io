@@ -9,11 +9,6 @@ function updateSimulation() {
     out.innerHTML = `Long run steady state: ${res.lrss.toFixed(2)}%<br>Schuldenquote: ${res.oneMSsim.Schuldenquote}<br>Zins-Steuer-Quote: ${res.oneMSsim.ZinsSteuerQuote}`;
 }
 
-console.log("updateSimulation() again")
-updateSimulation();
-console.log(".. and again")
-updateSimulation();
-
 
 function App() {
     console.log("Hello from App()!")

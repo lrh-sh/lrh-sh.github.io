@@ -202,19 +202,20 @@
   <div class="col-sm-8 bg-warning">
     <h1>Some content</h1>
     <span id="test_output"></span>
-    <script type="module" src="./App.js"></script><!-- removed type="module" -->
+    <!--<script type="module" src="./App.js"></script>--><!-- removed type="module" -->
     <script type="module">
-      import testResult from './MonteCarloSim.js';
+      import {oneSim, longRunSS} from './MonteCarloSim.js';
+      var out = document.getElementById('test_output');
+      var deficit = document.getElementById("regular_deficit")
       
-      function updateSimulation() {
-        console.log("Hello from updateSimulation()!")
-        var out = document.getElementById('test_output');
-        var res = testResult();
-        out.innerHTML = `Long run steady state: ${res.lrss.toFixed(2)}%<br>Schuldenquote: ${res.oneMSsim.Schuldenquote}<br>Zins-Steuer-Quote: ${res.oneMSsim.ZinsSteuerQuote}`;
+      function updateLRSS() {
+        console.log("Hello from updateLRSS()!")
+        let lrss = longRunSS(2.8, deficit.value, 0.2, 1.0, 40);
+        out.innerHTML = `Long run steady state: ${lrss.toFixed(2)}%<br>`;
       }
 
       window.onload = function() {
-        document.getElementById('regular_deficit').addEventListener('input', updateSimulation)
+        document.getElementById('regular_deficit').addEventListener('input', updateLRSS);
       }      
     </script>
     <span id="spielwiese"></span>
@@ -222,7 +223,7 @@
       var input = document.getElementById('r_bar');
       var out = document.getElementById('spielwiese');
       function testprint() {
-        out.innerHTML = `r_bar = ${input.value}`;
+        out.innerHTML = `r_bar = ${input.value}%`;
       }
       document.getElementById('r_bar').addEventListener('input', testprint)
     </script>
