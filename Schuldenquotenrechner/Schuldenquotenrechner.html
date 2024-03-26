@@ -84,18 +84,6 @@
                 </datalist>
               </li>
               <li>
-                <label for="excess_time">Notkredit alle</label>
-                <output id="excess_time.output" for="excess_time">5</output> Jahre<br/>
-                <input type="range" id="excess_time" name="excess_time" list="excess_time.markers" min="1" max="20" step="1" value="5" style="width: 100%;" oninput="document.getElementById('excess_time.output').value = this.value"/>
-                <datalist id="excess_time.markers">
-                  <option value="1" label="1"></option>
-                  <option value="5"></option>
-                  <option value="10"></option>
-                  <option value="15"></option>
-                  <option value="20" label="20"></option>
-                </datalist>
-              </li>
-              <li>
                 <label for="mean_growth">nominales Wachstum</label>
                 <output id="mean_growth.output" for="mean_growth">2.8</output>%<br/>
                 <input type="range" id="mean_growth" name="mean_growth" list="mean_growth.markers" min="0" max="5" step="0.1" value="2.8" style="width: 100%;" oninput="document.getElementById('mean_growth.output').value = parseFloat(this.value).toFixed(1)"/>
@@ -126,12 +114,24 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#mehrannahmen-collapse" aria-expanded="false">
-          Weitere Annahmen
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#notkredit-collapse" aria-expanded="false">
+          Notkredit
         </button>
-        <div class="collapse" id="mehrannahmen-collapse">
-          <form id="Mehrannahmen" method="get"> <!-- use form for easy reset button -->
+        <div class="collapse" id="notkredit-collapse">
+          <form id="Notkredit" method="get"> <!-- use form for easy reset button -->
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li>
+                <label for="excess_time">Häufigkeit alle</label>
+                <output id="excess_time.output" for="excess_time">5</output> Jahre<br/>
+                <input type="range" id="excess_time" name="excess_time" list="excess_time.markers" min="1" max="20" step="1" value="5" style="width: 100%;" oninput="document.getElementById('excess_time.output').value = this.value"/>
+                <datalist id="excess_time.markers">
+                  <option value="1" label="1"></option>
+                  <option value="5"></option>
+                  <option value="10"></option>
+                  <option value="15"></option>
+                  <option value="20" label="20"></option>
+                </datalist>
+              </li>
               <li>
                 <label for="excess_deficit_mean">mittlerer Notkredit:</label>
                 <output id="excess_deficit_mean.output" for="excess_deficit_mean">1.0</output>% des BIP<br/>
@@ -225,7 +225,7 @@
       }
       
       function updateLRSS() {
-        console.log("Hello from updateLRSS()!")
+        //console.log("Hello from updateLRSS()!")
         let x_prob = 1/parms.excess_time.value;
         let lrss = longRunSS(parms.mean_growth.value, 
           parms.regular_deficit.value, 
