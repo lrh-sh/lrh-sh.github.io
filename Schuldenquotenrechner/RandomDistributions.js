@@ -56,7 +56,7 @@ function randomLogLogistic(alpha = 1, beta=3) {
     return alpha * Math.pow(p / (1 - p), 1/beta);
 }
 
-perfTest = function(n=100, fn) {
+function perfTest(n=100, fn) {
     var x = 0;
     var startTime = performance.now()
 
@@ -71,7 +71,7 @@ perfTest = function(n=100, fn) {
     console.log(`Mean(x) = ${x/n}`)
 }
 
-testRNG = function(n=100, fn, ...parms) {
+function testRNG(n=100, fn, ...parms) {
     var x = 0;
     var x_sum = 0;
     var x2_sum= 0;
