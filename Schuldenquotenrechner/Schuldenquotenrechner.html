@@ -203,9 +203,18 @@
     <h1>Some content</h1>
     <span id="test_output"></span>
     <script type="module" src="./App.js"></script><!-- removed type="module" -->
-    <!--<script>
-      App();
-    </script>-->
+    <script>
+      import testResult from './MonteCarloSim.js';
+      
+      function updateSimulation() {
+        console.log("Hello from updateSimulation()!")
+        var out = document.getElementById('test_output');
+        var res = testResult();
+        out.innerHTML = `Long run steady state: ${res.lrss.toFixed(2)}%<br>Schuldenquote: ${res.oneMSsim.Schuldenquote}<br>Zins-Steuer-Quote: ${res.oneMSsim.ZinsSteuerQuote}`;
+      }
+
+      document.getElementById('regular_deficit').addEventListener('input', updateSimulation())
+    </script>
   </div>
 
   </div> <!-- end row -->
