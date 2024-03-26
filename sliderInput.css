@@ -15,3 +15,9 @@ input[type="range"] {
   width: 100%;
   margin: 0;
 }
+
+/* see https://stackoverflow.com/questions/10752189/how-do-i-set-the-width-in-pixels-of-an-input-slider */
+.slider-width100
+{
+  width: 100%;
+}
