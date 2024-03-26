@@ -6,7 +6,7 @@
 // to gain computational speed. It could be changed to random normal
 // deviates late on.
 
-import randomNormal from './RandomDistributions.js';
+import {randomNormal} from './RandomDistributions.js';
 
 
 function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
@@ -160,6 +160,11 @@ function testResult() {
     console.log(`Long run steady state: ${lrss}`);
     console.log(`Schuldenquote: ${oneResult.Schuldenquote}`);
     console.log(`Schuldenquote: ${oneResult.ZinsSteuerQuote}`);
+
+    return {
+        oneMSsim: oneResult,
+        lrss: lrss
+    }
 }
     
 

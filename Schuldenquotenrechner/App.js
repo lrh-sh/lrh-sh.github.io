@@ -2,7 +2,8 @@ import testResult from './MonteCarloSim.js';
 
 function App() {
     var out = document.getElementById('test_output');
-    out.value = "pipapo!";
+    var res = testResult();
+    out.value = res.lrss;
     return 0;
 }
 
