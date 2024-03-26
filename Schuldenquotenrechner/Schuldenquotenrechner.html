@@ -74,7 +74,7 @@
               <li>
                 <label for="regular_deficit">reguläres Defizit:</label>
                 <output id="regular_deficit.output" for="regular_deficit">0.00%</output> des BIP<br/>
-                <input type="range" class="slider-width100" id="regular_deficit" name="regular_deficit" list="regular_deficit.markers" min="0" max="1" step="0.05" value="0" style="width: 100%;" oninput="document.getElementById('regular_deficit.output').value = parseFloat(this.value).toFixed(2)+'%'"/>
+                <input type="range" id="regular_deficit" name="regular_deficit" list="regular_deficit.markers" min="0" max="1" step="0.05" value="0" style="width: 100%;" oninput="document.getElementById('regular_deficit.output').value = parseFloat(this.value).toFixed(2)+'%'"/>
                 <datalist id="regular_deficit.markers">
                   <option value="0.00" label="0%"></option>
                   <option value="0.25"></option>
@@ -86,7 +86,7 @@
               <li>
                 <label for="excess_time">Notkredit alle</label>
                 <output id="excess_time.output" for="excess_time">5</output> Jahre<br/>
-                <input type="range" class="slider-width100" id="excess_time" name="excess_time" list="excess_time.markers" min="1" max="20" step="1" value="5" style="width: 100%;" oninput="document.getElementById('excess_time.output').value = this.value"/>
+                <input type="range" id="excess_time" name="excess_time" list="excess_time.markers" min="1" max="20" step="1" value="5" style="width: 100%;" oninput="document.getElementById('excess_time.output').value = this.value"/>
                 <datalist id="excess_time.markers">
                   <option value="1" label="1"></option>
                   <option value="5"></option>
@@ -98,7 +98,7 @@
               <li>
                 <label for="mean_growth">nominales Wachstum</label>
                 <output id="mean_growth.output" for="mean_growth">2.8</output>%<br/>
-                <input type="range" class="slider-width100" id="mean_growth" name="mean_growth" list="mean_growth.markers" min="0" max="5" step="0.1" value="2.8" style="width: 100%;" oninput="document.getElementById('mean_growth.output').value = parseFloat(this.value).toFixed(1)"/>
+                <input type="range" id="mean_growth" name="mean_growth" list="mean_growth.markers" min="0" max="5" step="0.1" value="2.8" style="width: 100%;" oninput="document.getElementById('mean_growth.output').value = parseFloat(this.value).toFixed(1)"/>
                 <datalist id="mean_growth.markers">
                   <option value="0" label="0%"></option>
                   <option value="1"></option>
@@ -111,7 +111,7 @@
               <li>
                 <label for="r_bar">Nominalzins</label>
                 <output id="r_bar.output" for="r_bar">3.0</output>%<br/>
-                <input type="range" class="slider-width100" id="r_bar" name="r_bar" list="r_bar.markers" min="0" max="5" step="0.1" value="3" style="width: 100%;" oninput="document.getElementById('r_bar.output').value = parseFloat(this.value).toFixed(1)"/>
+                <input type="range" id="r_bar" name="r_bar" list="r_bar.markers" min="0" max="5" step="0.1" value="3" style="width: 100%;" oninput="document.getElementById('r_bar.output').value = parseFloat(this.value).toFixed(1)"/>
                 <datalist id="r_bar.markers">
                   <option value="0" label="0%"></option>
                   <option value="1"></option>
@@ -135,7 +135,7 @@
               <li>
                 <label for="excess_deficit_mean">mittlerer Notkredit:</label>
                 <output id="excess_deficit_mean.output" for="excess_deficit_mean">1.0</output>% des BIP<br/>
-                <input type="range" class="slider-width100" id="excess_deficit_mean" name="excess_deficit_mean" list="excess_deficit_mean.markers" min="0" max="5" step="0.1" value="1" style="width: 100%;" oninput="document.getElementById('excess_deficit_mean.output').value = parseFloat(this.value).toFixed(1)"/>
+                <input type="range" id="excess_deficit_mean" name="excess_deficit_mean" list="excess_deficit_mean.markers" min="0" max="5" step="0.1" value="1" style="width: 100%;" oninput="document.getElementById('excess_deficit_mean.output').value = parseFloat(this.value).toFixed(1)"/>
                 <datalist id="excess_deficit_mean.markers">
                   <option value="0" label="0%"></option>
                   <option value="1"></option>
@@ -148,7 +148,7 @@
               <li>
                 <label for="excess_amort">Tilgungsdauer</label>
                 <output id="excess_amort.output" for="excess_amort">40</output> Jahre<br/>
-                <input type="range" class="slider-width100" id="excess_amort" name="excess_amort" list="excess_amort.markers" min="1" max="100" step="1" value="40" style="width: 100%;" oninput="document.getElementById('excess_amort.output').value = this.value"/>
+                <input type="range" id="excess_amort" name="excess_amort" list="excess_amort.markers" min="1" max="100" step="1" value="40" style="width: 100%;" oninput="document.getElementById('excess_amort.output').value = this.value"/>
                 <datalist id="excess_amort.markers">
                   <option value="1" label="1"></option>
                   <option value="25"></option>
@@ -171,7 +171,7 @@
               <li>
                 <label for="TT">Simulationshorizont</label>
                 <output id="TT.output" for="TT">36</output> Jahre<br/>
-                <input type="range" class="slider-width100" id="TT" name="TT" list="TT.markers" min="10" max="200" step="1" value="36" style="width: 100%;" oninput="document.getElementById('TT.output').value = this.value"/>
+                <input type="range" id="TT" name="TT" list="TT.markers" min="10" max="200" step="1" value="36" style="width: 100%;" oninput="document.getElementById('TT.output').value = this.value"/>
                 <datalist id="TT.markers">
                   <option value="1" label="1"></option>
                   <option value="50"></option>
@@ -183,7 +183,7 @@
               <li>
                 <label for="n_sim">Anzahl Simulationsrunden:</label>
                 <output id="n_sim.output" for="n_sim">250</output><br/>
-                <input type="range" class="slider-width100" id="n_sim" name="n_sim" list="n_sim.markers" min="100" max="1000" step="50" value="250" style="width: 100%;" oninput="document.getElementById('n_sim.output').value = this.value"/>
+                <input type="range" id="n_sim" name="n_sim" list="n_sim.markers" min="100" max="1000" step="50" value="250" style="width: 100%;" oninput="document.getElementById('n_sim.output').value = this.value"/>
                 <datalist id="n_sim.markers">
                   <option value="100" label="100"></option>
                   <option value="250"></option>
@@ -217,15 +217,6 @@
       window.onload = function() {
         document.getElementById('regular_deficit').addEventListener('input', updateLRSS);
       }      
-    </script>
-    <span id="spielwiese"></span>
-    <script>
-      var input = document.getElementById('r_bar');
-      var out = document.getElementById('spielwiese');
-      function testprint() {
-        out.innerHTML = `r_bar = ${input.value}%`;
-      }
-      document.getElementById('r_bar').addEventListener('input', testprint)
     </script>
   </div>
 
