@@ -68,7 +68,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
 
     // if g_se>0, draw mean growth rate to account for parameter uncertainty
     if (g_se > 0) {
-        g_mean = randomNormal(mean = g_mean, sd = g_se);
+        g_mean = randomNormal(g_mean, g_se);
     }
 
     // choose parameters of the Log-Normal distribution für die Notkredite
@@ -87,7 +87,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
     for (let t = 0; t < TT; t++) {
                 
         // nominales BIP
-        gt = randomNormal(mean = g_mean, sd = g_sd);
+        gt = randomNormal(g_mean, g_sd);
         Yt *= (1 + gt);
         console.log(`g${t} = ${gt}, Y${t} = ${Yt}`);
 
@@ -100,7 +100,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         itr[t] = Bt*it / (Yt*tyr) * 100; // = Bt * it / 100 / (Yt*tyr/100) * 100
         
         // sehr einfaches Modell für Markt- und Durchschnittszins (beide in %, d.h. 3.0%)
-        rt = a0 + a1*rt + randomNormal(mean=0, sd=eps_sd);
+        rt = a0 + a1*rt + randomNormal(0, eps_sd);
         it = (1*rt + (mat-1)*it)/mat;
 
         
@@ -144,11 +144,11 @@ function longRunSS(g_mean = 2.8, deficit = 0, x_prob = 0.2, x_mean = 1.0, K = 40
 
 // einige Tests
 function testResult() {
-    var oneResult = oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0.15, 
-                           x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,
-                           i0=1.38, r0=3.0, r_bar=3.0, mat=15, tyr=10.75, 
-                           TT=10)
-    var lrss = longRunSS(g_mean = 2.8, deficit = .15, x_prob = .2, x_mean = 1.0, K=40)
+    var oneResult = oneSim(28, 2.8, 2.2, 0, 0.15, 
+                           0.2, 0.5, 0.5, 40,
+                           1.38, 3.0, 3.0, 15, 10.75, 
+                           10)
+    var lrss = longRunSS(2.8, .15, .2, 1.0, 40)
 
     console.log(`Long run steady state: ${lrss}`);
     console.log(`Schuldenquote: ${oneResult.Schuldenquote}`);
