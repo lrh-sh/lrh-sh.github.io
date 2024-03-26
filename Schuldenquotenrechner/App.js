@@ -23,4 +23,8 @@ function App() {
 
 App();
 
+console.log("place it outside the App() function")
+document.getElementById('regular_deficit').addEventListener('input', updateSimulation())
+
+
 export default App;
