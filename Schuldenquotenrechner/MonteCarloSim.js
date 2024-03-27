@@ -224,9 +224,9 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
     }
 
     // some helper indices so we don't have to sort three times
-    idx_median = Math.floor(Nsim/2); // don't bother with even/uneven, shouldn't matter at all
-    idx_p05 = Math.floor(Nsim*0.05);
-    idx_p95 = Math.ceil(Nsim*0.95);
+    const idx_median = Math.floor(Nsim/2); // don't bother with even/uneven, shouldn't matter at all
+    const idx_p05 = Math.floor(Nsim*0.05);
+    const idx_p95 = Math.ceil(Nsim*0.95);
 
     // compute results for each time period across simulations
     for (let t=0; t<TT; t++) {
@@ -246,7 +246,7 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         bt_stats.min[t] = minArray(b_ti);
         bt_stats.max[t] = maxArray(b_ti);
         bt_stats.sample[t] = b_ti[0]; // return first simulation as illustrative sample
-        b_ti.sort(); // sorting in order to compute the percentiles
+        b_ti.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
         bt_stats.p05[t] = b_ti[idx_p05];
         bt_stats.median[t] = b_ti[idx_median];
         bt_stats.p95[t] = b_ti[idx_p95];
@@ -254,7 +254,7 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         itr_stats.min[t] = minArray(itr_ti);
         itr_stats.max[t] = maxArray(itr_ti);
         itr_stats.sample[t] = itr_ti[0]; // return first simulation as illustrative sample
-        itr_ti.sort(); // sorting in order to compute the percentiles
+        itr_ti.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
         itr_stats.p05[t] = itr_ti[idx_p05];
         itr_stats.median[t] = itr_ti[idx_median];
         itr_stats.p95[t] = itr_ti[idx_p95];
