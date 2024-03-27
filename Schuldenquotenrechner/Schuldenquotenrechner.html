@@ -13,6 +13,9 @@
     <link href="dimensions.css" rel="stylesheet">
     <link href="togglers.css" rel="stylesheet">
     <link href="sliderInput.css" rel="stylesheet">
+
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   
   <body>
@@ -202,10 +205,28 @@
   <div class="col-sm-8 bg-warning">
     <h1>Some content</h1>
     <span id="test_output"></span>
+    <canvas id="simulation-chart" width="399" height="199" style="display: block; box-sizing: border-box; height: 199px; width: 399px;"></canvas>
+    
     <script src="./MonteCarloSim.js"></script><!-- removed type="module" -->
     <script>
       //import {oneSim, longRunSS} from './MonteCarloSim.js';
       const out = document.getElementById('test_output');
+      let chart;
+
+      // definiere Startwerte
+      // todo: berechne aus Input-Daten
+      const b0 = 25.6; // Schuldenquote 2023 mit überschlägigem BIP-SH
+      const r0 = 2.48; // durchschn. Umlaufsrendite Bundeswertpapiere RLZ 8-15J.
+      const i0 = 1.38; // durchschn. Verzinsung SH-Schulden 2023
+      const tyr= 10.75;// durchschn. Zins-Steuer-Quote 2015 - 2023
+
+      // definiere technische Simulationsparameter
+      // todo: baue "Expertenmodus" ein, in dem diese Parms auch geändert werden können
+      const g_sd = 2.2 // Standardabweichung nominales Wachstum 91-23 in %
+      const g_se = 0.4 // Standardfehler des mittleren nominalen Wachstums SH 91-23 in %
+      const x_sd = 0.5 // Standardabweichung der Notkredit-Höhe in % des BIP
+      const LZ = 15    // Laufzeit Refinanzierung (Annahme: nur ein Laufzeitband)
+      
 
       // collect parameters in a single object
       const parms = {};
@@ -235,9 +256,86 @@
         out.innerHTML = `Long run steady state: ${lrss.toFixed(1)}%<br>`;
       }
 
+      function updateSimulation() {
+        //console.log("Hello from updateSimulation()!")
+        let x_prob = 1/parms.excess_time.value;
+        let res = MCsim(
+          b0, parms.mean_growth.value, g_sd, g_se, parms.regular_deficit.value,
+          x_prob, parms.excess_deficit_mean.value, x_sd, parms.excess_amort.value,
+          i0, r0, parms.r_bar.value, LZ, tyr,
+          parms.TT.value, parms.n_sim.value
+        );
+        renderChart(res);
+      }
+
+      function renderChart(dta) {
+        if (chart) {
+          chart.destroy(); // destroy the chart so as to be able to recompute it
+        }
+        const ctx = document.getElementById('simulation-chart').getContext('2d');
+        chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: Array.from({ length: dta.Schuldenquote.time.length }, (_, i) => i + 1),
+            datasets: [
+              {
+                label: 'Median',
+                data: dta.Schuldenquote.median,
+                borderColor: 'blue',
+                backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                pointStyle: false
+              },
+              {
+              label: '5%',
+              data: dta.Schuldenquote.p05,
+              borderColor: 'blue',
+              borderDash: [10, 10],
+              backgroundColor: 'rgba(0, 0, 255, 0.1)',
+              pointStyle: false
+              },
+              {
+              label: '95%',
+              data: dta.Schuldenquote.p95,
+              borderColor: 'blue',
+              borderDash: [10, 10],
+              backgroundColor: 'rgba(0, 0, 255, 0.1)',
+              pointStyle: false
+              },
+              {
+              label: 'sample',
+              data: dta.Schuldenquote.sample,
+              borderColor: 'green',
+              backgroundColor: 'rgba(0, 0, 255, 0.1)',
+              pointStyle: false
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            animation: false,
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Step'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Value'
+                }
+              }
+            }
+          }
+        });
+      }
+      
       window.onload = function() {
-        for (const i in parms) {
+        updateSimulation();
+        for (const i in parms) { // for .. in iterates over elements of an object
           parms[i].addEventListener('input', updateLRSS);
+          parms[i].addEventListener('input', updateSimulation);
         }
       }      
     </script>

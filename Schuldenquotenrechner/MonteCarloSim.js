@@ -39,6 +39,25 @@ function randomNormal(mean=0, sd=1) {
     }
 }
 
+// helper functions for arrays
+function maxArray(arr) {
+    return arr.reduce(
+        (current_max, current_value) => Math.max(current_max, current_value),
+        -Infinity
+    )
+}
+function minArray(arr) {
+    return arr.reduce(
+        (current_min, current_value) => Math.min(current_min, current_value),
+        Infinity
+    )
+}
+function meanArray(arr) {
+    return arr.reduce(
+        (current_sum, current_value) => current_sum + current_value,
+        0
+    ) / arr.length;
+}
 
 function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
                 x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,
@@ -158,7 +177,94 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         ZinsSteuerQuote: itr
     }
 }
+// oneSim(25.6, 2.8, 2.2, 0.4, 0.0, 1, 0, 0.5, 1, 1.38, 2.48, 0.0, 15, 10.75,50).Schuldenquote
+//
 
+function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
+               x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,
+               i0=1.38, r0=3.0, r_bar=3.0, mat=15, tyr=10.75, 
+               TT=30, Nsim=499) {
+
+    // initialize result arrays
+    var b_sim = Array(Nsim);
+    var itr_sim = Array(Nsim);
+    var b_ti = Array(Nsim);
+    var itr_ti = Array(Nsim);
+    var bt_stats = {
+        time: Array(TT),
+        median: Array(TT),
+        min: Array(TT),
+        max: Array(TT),
+        p05: Array(TT),
+        p95: Array(TT),
+        sample: Array(TT),
+    };
+    var itr_stats = {
+        time: Array(TT),
+        median: Array(TT),
+        min: Array(TT),
+        max: Array(TT),
+        p05: Array(TT),
+        p95: Array(TT),
+        sample: Array(TT),
+    };
+    var res;
+    
+    // loop through simulation rounds
+    for (let i=0; i<Nsim; i++) {
+        //console.log(`### simulation round ${i} ###`);
+        res = oneSim(b0, g_mean, g_sd, g_se, d, 
+                     x_prob, x_mean, x_sd, K,
+                     i0, r0, r_bar, mat, tyr, 
+                     TT);
+        b_sim[i] = res.Schuldenquote.map((x) => x); // properly copying the array by value
+        itr_sim[i] = res.ZinsSteuerQuote.map((x) => x);
+        //console.log(`b_sim[${i}].length = ${b_sim[i].length}`);
+        //console.log(`b_sim[${i}][0] = ${b_sim[i][0]}`);
+    }
+
+    // some helper indices so we don't have to sort three times
+    idx_median = Math.floor(Nsim/2); // don't bother with even/uneven, shouldn't matter at all
+    idx_p05 = Math.floor(Nsim*0.05);
+    idx_p95 = Math.ceil(Nsim*0.95);
+
+    // compute results for each time period across simulations
+    for (let t=0; t<TT; t++) {
+        //console.log(`### compute stats for time period ${t} ###`)
+        bt_stats.time[t] = t+1; // indices start at 0, but first element is already simulated
+        itr_stats.time[t] = t+1;
+
+        // fetch simulation results for time period t
+        for (let i=0; i<Nsim; i++) { 
+            //console.log(`### fetch simulation result for round ${i} in period ${t} ###`)
+            b_ti[i] = b_sim[i][t];
+            itr_ti[i] = itr_sim[i][t];
+        }
+
+        // ... and compute stats
+        
+        bt_stats.min[t] = minArray(b_ti);
+        bt_stats.max[t] = maxArray(b_ti);
+        bt_stats.sample[t] = b_ti[0]; // return first simulation as illustrative sample
+        b_ti.sort(); // sorting in order to compute the percentiles
+        bt_stats.p05[t] = b_ti[idx_p05];
+        bt_stats.median[t] = b_ti[idx_median];
+        bt_stats.p95[t] = b_ti[idx_p95];
+
+        itr_stats.min[t] = minArray(itr_ti);
+        itr_stats.max[t] = maxArray(itr_ti);
+        itr_stats.sample[t] = itr_ti[0]; // return first simulation as illustrative sample
+        itr_ti.sort(); // sorting in order to compute the percentiles
+        itr_stats.p05[t] = itr_ti[idx_p05];
+        itr_stats.median[t] = itr_ti[idx_median];
+        itr_stats.p95[t] = itr_ti[idx_p95];
+    }
+
+    return {
+        Schuldenquote: bt_stats,
+        ZinsSteuerQuote: itr_stats
+    };
+}
 
 function longRunSS(g_mean = 2.8, deficit = 0, x_prob = 0.2, x_mean = 1.0, K = 40) {
     // berechne den long run steady state
