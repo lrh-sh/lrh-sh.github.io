@@ -6,7 +6,38 @@
 // 
 // 
 
-import {randomNormal} from './RandomDistributions.js';
+//import {randomNormal} from './RandomDistributions.js';
+function randomNormal(mean=0, sd=1) {
+    // random normal variables using the Box-Muller transformation
+    // see https://s3.amazonaws.com/nrbook.com/book_C210.html
+    // and https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform#Polar_form
+    // and https://stackoverflow.com/questions/1535631/static-variables-in-javascript
+
+    let fac,rsq,v1,v2;
+    
+    // Check to see if the counter has been initialized
+    // move this outside function lest it performs this Check
+    // everytime it is called?
+    if ( typeof randomNormal.iset == 'undefined' ) {
+        // It has not... perform the initialization
+        randomNormal.iset = 0;
+    }
+
+    if (randomNormal.iset === 1) {
+        randomNormal.iset = 0;
+        return mean + sd*randomNormal.gset;
+    } else {
+        do {
+            v1 = 2.0*Math.random() - 1.0;
+            v2 = 2.0*Math.random() - 1.0;
+            rsq = v1*v1 + v2*v2;
+        } while (rsq >= 1.0 || rsq === 0.0)
+        fac = Math.sqrt(-2.0*Math.log(rsq)/rsq);
+        randomNormal.gset = v1*fac;
+        randomNormal.iset = 1;
+        return mean + sd*v2*fac;
+    }
+}
 
 
 function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
@@ -158,5 +189,5 @@ function testResult() {
     }
 }
     
-export {oneSim, longRunSS};
-export default testResult;
+//export {oneSim, longRunSS};
+//export default testResult;

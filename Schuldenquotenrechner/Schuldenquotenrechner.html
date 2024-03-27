@@ -202,9 +202,9 @@
   <div class="col-sm-8 bg-warning">
     <h1>Some content</h1>
     <span id="test_output"></span>
-    <!--<script type="module" src="./App.js"></script>--><!-- removed type="module" -->
-    <script type="module">
-      import {oneSim, longRunSS} from './MonteCarloSim.js';
+    <script src="./MonteCarloSim.js"></script><!-- removed type="module" -->
+    <script>
+      //import {oneSim, longRunSS} from './MonteCarloSim.js';
       const out = document.getElementById('test_output');
 
       // collect parameters in a single object
