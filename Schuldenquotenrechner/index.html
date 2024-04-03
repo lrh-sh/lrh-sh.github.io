@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de" data-bs-theme="auto">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schuldenquotenrechner für SH</title>
+
+    <!-- bootstrap styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="jquery-3.7.1.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="dimensions.css" rel="stylesheet">
+    <link href="togglers.css" rel="stylesheet">
+    <link href="sliderInput.css" rel="stylesheet">
+    
+
+    <!-- Add Chart.js library -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+    <!-- Add Dygraph library -->
+    <link rel="stylesheet" href="dygraph.css" />
+    <script type="text/javascript" src="dygraph.min.js"></script>
+    <script type="text/javascript" src="synchronizer.js"></script>
+    
+  </head>
+  
+  <body>
+
+    <noscript>Diese App funktioniert nur mit JavaScript.</noscript>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- initialize tooltips -->
+    <script type="text/javascript">
+      $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+      });
+    </script>
+
+
+  <!-- header / navbar -->
+
+      <div class="navbar navbar-expand-sm navbar-light bg-light fixed-top border-bottom" aria-label="Navigation">
+        <div class="container-fluid">
+
+        <div class="navbar-header">
+          <span class="navbar-brand">
+            Schuldenquotenrechner
+          </span>
+        </div>
+
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#Navigation" aria-controls="Navigation" aria-expanded="false" aria-label="Navigation ausklappen">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="navbar-collapse collapse" id="Navigation"> <!-- can include nav-pills in class -->
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+    	      <li class="nav-item"><a href="#" class="nav-link" aria-current="page"
+                                     onclick="loadWebApp()">Home</a></li>
+              <li class="nav-item"><a href="#" class="nav-link"
+                                     onclick="loadPage('./Dokumentation.html')">Dokumentation</a></li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    <!---------------------- main content ---------------------->
+
+<main class="container" id="content">
+</main>
+
+<script src="./MonteCarloSim.js"></script><!-- removed type="module" -->
+<script src="./Daten.js"></script>
+<script src="./webapp.js"></script>
+<script>
+  // Lade content der subpages
+  function loadPage(page) {
+    fetch(page)
+      .then(response => response.text())
+      .then(html => document.getElementById('content').innerHTML = html)
+      .catch(error => console.error('Error loading page:', error));
+  }
+
+  // Lade Webapp
+  function initWebApp() {
+    //console.log("Hello from loadWebApp()");
+    page = "./webapp.html";
+    loadPage(page);
+  }
+
+  function startWebApp() {
+    //console.log("Hello from startWebApp()");
+    // collect parameters in a single object
+    parms.regular_deficit = document.getElementById("regular_deficit");
+    parms.mean_growth = document.getElementById("mean_growth");
+    parms.excess_time = document.getElementById("excess_time");
+    parms.r_bar = document.getElementById("r_bar");
+    parms.excess_deficit_mean = document.getElementById("excess_deficit_mean");
+    parms.excess_amort = document.getElementById("excess_amort");
+    parms.TT = document.getElementById("TT");
+    parms.n_sim = document.getElementById("n_sim");
+    for (const i in parms) { // for .. in iterates over elements of an object
+      //parms[i].addEventListener('input', updateLRSS);
+      parms[i].addEventListener('change', updateSimulation); // use change instead, possible reason for crash on ios after active slider usage
+    }    
+
+    updateSimulation();
+  }
+
+  function loadWebApp() {
+    initWebApp();
+    setTimeout(startWebApp, 300); // seems to be important to wait lest parms is not yet bound to newly loaded html objects
+  }
+
+  window.onload = function() {
+    loadWebApp();
+  }
+</script>
+
+</body>
+</html>
