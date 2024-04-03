@@ -154,8 +154,8 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            //title: "Schuldenquote [% des BIP]",
-            //titleHeight: 25,
+            title: "Schuldenquote [% des BIP]",
+            titleHeight: 25,
           }
         );
 
@@ -205,8 +205,8 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            //title: "Zins-Steuer-Quote",
-            //titleHeight: 25,
+            title: "Zins-Steuer-Quote",
+            titleHeight: 25,
           }
         );
 
