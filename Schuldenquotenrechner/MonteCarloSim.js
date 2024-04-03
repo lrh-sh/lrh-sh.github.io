@@ -148,7 +148,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         itr[t] = Bt*it / (Yt*tyr) * 100; // = Bt * it / 100 / (Yt*tyr/100) * 100
         
         // sehr einfaches Modell für Markt- und Durchschnittszins (beide in %, d.h. 3.0%)
-        rt = a0 + a1*rt + randomNormal(0, eps_sd);
+        rt = Math.max(a0 + a1*rt + randomNormal(0, eps_sd), -0.5);
         it = (1*rt + (mat-1)*it)/mat;
 
         
@@ -160,7 +160,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         Xt = xt*Yt;
 
         // Notkredit-Tilgungen (uniform über einen Zeitraum von K Jahren)
-        Tilgung_t = (Xt_cum - ((t>=K) ? Xt_cum_arr[t-K] : 0))/K
+        Tilgung_t = (Xt_cum - (((t-1)>=K) ? Xt_cum_arr[t-1-K] : 0))/K
 
         // Notkredit-Buchhaltung
         Xt_cum += Xt;
