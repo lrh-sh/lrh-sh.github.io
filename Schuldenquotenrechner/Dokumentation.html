@@ -193,14 +193,24 @@
 			\frac{ \bar{r} }{ \gamma \bar{g} }
 			\left[ d + p_x \bar{x} \left( 1 - \frac{ 1-(1+\bar{g})^{-K} }{ \bar{g} K } \right) \right]
 	\]
-	
+	Die langfristige Zins-Steuer-Quote hängt also entscheidend vom Verhältnis zwischen dem mittleren Zinssatz und
+	der mittleren Wachstumsrate ab, in erster Näherung von der Differenz dieser beiden Größen. Nimmt man an, 
+	dass der mittlere Zinssatz in etwa dem mittleren nominalen Wachstum entspricht, so ergibt sich die 
+	gleichgewichtige Zins-Steuer-Quote als Quotient der mittleren Nettokreditaufnahme (inkl. Notkredit
+	und Notkredit-Tilgungen) und der Steuerquote relativ zum BIP (derzeit rund 11%). 
+	Bei der Kreditaufnahme müssen auch sämtliche sonstigen Schuldenaufnahmen des Landes und Verbindlichkeiten
+	des Landes berücksichtigt werden, etwa in ausgelagerten Nebenhaushalten.
+	Beträgt die mittlere Nettokreditaufnahme etwa 0,3% des BIP, was derzeit etwa 350 Mio. € wären, 
+	würde die Zins-Steuer-Quote langfristig etwa \( 0,3% \div 11% = 2,7% \) betragen. Ist \( r \neq g \) kommt
+	zu diesem Wert noch die Zins-Wachstums-Differenz hinzu. Ist beispielsweise der Zinssatz 1 Prozentpunkt
+	höher als die nominale Wachstumsrate, beträgt die langfristige Zins-Steuer-Quote etwa 3,7%.
     </p>
 
     <p>
 	Da Modell wird simuliert, indem wiederholt Werte für \(g_t\), \(\epsilon_t\), \(\xi_t\) und \(u_t\) gezogen werden.
 	Ausgehend von Startwerten \( b_0 \), \( r_0 \) und \( i_t \) lassen sich dann die obigen Ausdrücke für 
 	\( b_t \), \(r_t \), \( i_t \) und \( z_t \) fortschreiben. Standardmäßig werden \( M=250 \) Simulationsrunden
-	durchgeführt, der Benutzer kann dies aber auf bis zu \( 1.000 \) Runden erhöhen.
+	durchgeführt, der Benutzer kann dies aber auf bis zu \( 1000 \) Runden erhöhen.
     </p>
 
     <p>
