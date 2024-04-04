@@ -136,7 +136,7 @@
       parms[i].addEventListener('change', updateSimulation); // use change instead, possible reason for crash on ios after active slider usage
     }    
 
-    //updateSimulation();
+    setTimeout(updateSimulation, 100);
   }
 
   function loadWebApp() {
