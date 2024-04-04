@@ -20,7 +20,7 @@
                 <label for="regular_deficit" data-toggle="tooltip" title="Annahme: wird voll ausgeschöpft" data-placement="top">
                   reguläres Defizit:
                 </label>
-                <output id="regular_deficit.output" for="regular_deficit">0.00%</output> des BIP<br/>
+                <output id="regular_deficit.output" for="regular_deficit">0.00%</output> des <abbr title="Bruttoinlandsprodukt">BIP</abbr><br/>
                 <input type="range" id="regular_deficit" name="regular_deficit" list="regular_deficit.markers" 
                   min="0" max="1" step="0.05" value="0" style="width: 100%;" 
                   oninput="document.getElementById('regular_deficit.output').value = parseFloat(this.value).toFixed(2)+'%'"/>
