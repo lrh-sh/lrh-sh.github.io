@@ -103,7 +103,7 @@
   // lade Dokumentation
   function loadDocumentation() {
     loadPage('./Dokumentation.html');
-    MathJax.typesetPromise(); // see https://docs.mathjax.org/en/latest/advanced/typeset.html
+    setTimeout(MathJax.typesetPromise, 300); // see https://docs.mathjax.org/en/latest/advanced/typeset.html
   }
 
   // Lade Webapp
