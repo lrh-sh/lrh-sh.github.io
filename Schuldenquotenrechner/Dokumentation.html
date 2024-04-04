@@ -15,15 +15,15 @@
     </p>
 
     <p>Der Benutzer kann folgende Parameter frei wählen:</p>
-    <table class="table">
+    <table class="table-secondary table-striped">
       <thead>
-        <tr>
+        <tr class="table-primary">
           <th scope="col">Parameter</th>
           <th scope="col">Standardwert</th>
           <th scope="col">Erläuterung</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="table-group-divider">
         <tr>
           <td>reguläres Defizit</td>
           <td>0% des BIP</td>
@@ -45,9 +45,9 @@
               <td>mittlere Häufigkeit, mit der ein Notkredit in Anspruch genommen wird.</td>
           </tr>
           <tr>
-              <td>Mittlere Höhe des Notkredites</td>
+              <td>Höhe des Notkredites</td>
               <td>1% des BIP</td>
-              <td></td>
+              <td>mittlere Höhe des Notkredites, sofern er in Anspruch genommen wird</td>
           </tr>
           <tr>
               <td>Tilgungsdauer</td>
@@ -167,7 +167,7 @@
         In erster Näherung entwickelt sich die durchschnittliche Verzinsung gemäß obiger Gleichung, wenn sich das Land stets nur mit einer Laufzeit von 15 Jahren verschulden würde. 
         Dies führt zu einer durchschnittlichen Restlaufzeit im Kreditportfolio von 8 Jahren, was ungefähr dem tatsächlich beobachteten Wert entspricht. 
         In der Realität ist die Dynamik natürlich komplexer und hängt eher von einem gewichteten Mittelwert der vergangenen Kapitalmarktzinsen ab. 
-        Obiges Modell ist aber für diese Zwecke ausreichend. Insbesondere gilt \( \mathbb{i_t} = \mathbb{r_t} = \bar{r} \),
+        Obiges Modell ist aber für diese Zwecke ausreichend. Insbesondere gilt \( \mathbb{E}[i_t] = \mathbb{E}[r_t] = \bar{r} \),
 	die durchschnittliche Verzinsung entspricht im langjährigen Mittel also dem Erwartungswert des Kapitalmarktzinses.
     </p>
 
@@ -201,9 +201,11 @@
 	Bei der Kreditaufnahme müssen auch sämtliche sonstigen Schuldenaufnahmen des Landes und Verbindlichkeiten
 	des Landes berücksichtigt werden, etwa in ausgelagerten Nebenhaushalten.
 	Beträgt die mittlere Nettokreditaufnahme etwa 0,3% des BIP, was derzeit etwa 350 Mio. € wären, 
-	würde die Zins-Steuer-Quote langfristig etwa \( 0,3% \div 11% = 2,7% \) betragen. Ist \( r \neq g \) kommt
+	würde die Zins-Steuer-Quote langfristig etwa \( 0,3\% \div 11\% = 2,7\% \) betragen. Ist \( r \neq g \) kommt
 	zu diesem Wert noch die Zins-Wachstums-Differenz hinzu. Ist beispielsweise der Zinssatz 1 Prozentpunkt
-	höher als die nominale Wachstumsrate, beträgt die langfristige Zins-Steuer-Quote etwa 3,7%.
+	höher als die nominale Wachstumsrate, beträgt die Zins-Steuer-Quote im langfristigen Mittel etwa 3,7%.
+    Über kürzere Zeiträume kann Zins-Steuer-Quote natürlic erheblich schwanken und auch deutlich größere
+    Werte annehmen.
     </p>
 
     <p>
