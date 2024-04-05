@@ -195,12 +195,12 @@ function computeStats(obj,x,t) {
     let idx_p05 = Math.floor(x.length*0.05);
     let idx_p95 = Math.ceil(x.length*0.95);
     obj.min[t] = minArray(x);
-    obj.max[t] = maxArray(b_xti);
+    obj.max[t] = maxArray(x);
     obj.sample[t] = x[0]; // return first simulation as illustrative sample
     x.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
     obj.p05[t] = x[idx_p05];
     obj.median[t] = x[idx_median];
-    obj.p95[t] = x_mean[idx_p95];
+    obj.p95[t] = x[idx_p95];
 }
 
 
