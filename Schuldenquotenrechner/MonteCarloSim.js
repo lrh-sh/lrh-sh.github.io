@@ -180,6 +180,23 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
 // oneSim(25.6, 2.8, 2.2, 0.4, 0.0, 1, 0, 0.5, 1, 1.38, 2.48, 0.0, 15, 10.75,50).Schuldenquote
 //
 
+function computeStats(obj,x,t) {
+    // compute summary statistics of a vector x and save results as properties of obj.vector at position t
+    // attention, x will be sorted
+    // some helper indices so we don't have to sort three times
+    let idx_median = Math.floor(x.length/2); // don't bother with even/uneven, shouldn't matter at all
+    let idx_p05 = Math.floor(x.length*0.05);
+    let idx_p95 = Math.ceil(x.length*0.95);
+    obj.min[t] = minArray(x);
+    obj.max[t] = maxArray(b_xti);
+    obj.sample[t] = x[0]; // return first simulation as illustrative sample
+    x.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
+    obj.p05[t] = x[idx_p05];
+    obj.median[t] = x[idx_median];
+    obj.p95[t] = x_mean[idx_p95];
+}
+
+
 function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0, 
                x_prob=0.2, x_mean=0.5, x_sd=0.5, K=40,
                i0=1.38, r0=3.0, r_bar=3.0, mat=15, tyr=10.75, 
@@ -223,10 +240,7 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         //console.log(`b_sim[${i}][0] = ${b_sim[i][0]}`);
     }
 
-    // some helper indices so we don't have to sort three times
-    const idx_median = Math.floor(Nsim/2); // don't bother with even/uneven, shouldn't matter at all
-    const idx_p05 = Math.floor(Nsim*0.05);
-    const idx_p95 = Math.ceil(Nsim*0.95);
+
 
     // compute results for each time period across simulations
     for (let t=0; t<TT; t++) {
@@ -243,21 +257,8 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
 
         // ... and compute stats
         
-        bt_stats.min[t] = minArray(b_ti);
-        bt_stats.max[t] = maxArray(b_ti);
-        bt_stats.sample[t] = b_ti[0]; // return first simulation as illustrative sample
-        b_ti.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
-        bt_stats.p05[t] = b_ti[idx_p05];
-        bt_stats.median[t] = b_ti[idx_median];
-        bt_stats.p95[t] = b_ti[idx_p95];
-
-        itr_stats.min[t] = minArray(itr_ti);
-        itr_stats.max[t] = maxArray(itr_ti);
-        itr_stats.sample[t] = itr_ti[0]; // return first simulation as illustrative sample
-        itr_ti.sort(function(a, b) { return a-b}); // sort is lexicographic, not numeric by default!!!
-        itr_stats.p05[t] = itr_ti[idx_p05];
-        itr_stats.median[t] = itr_ti[idx_median];
-        itr_stats.p95[t] = itr_ti[idx_p95];
+        computeStats(bt_stats, b_ti, t);
+        computeStats(itr_stats, itr_ti, t);
     }
 
     return {
