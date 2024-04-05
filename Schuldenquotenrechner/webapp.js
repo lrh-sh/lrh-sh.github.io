@@ -104,6 +104,35 @@
           Math.max(...dta.ZinsSteuerQuote.p95)
         );
         zsq_max = 5*Math.ceil(zsq_max/5);
+
+        // Ausgabespielraum-Daten
+        var plotdat3 = Array(nobs+TT);
+        // fill historical data
+        for (let i=0; i<nobs; i++) {
+          plotdat3[i] = [
+            histdata.Jahr[i], 
+            [null, null, null],
+            [null, null, null], // Platzhalter für Median
+            [null, null, null] // Platzhalter für long run steady state
+          ]
+        }
+        for (let i=0; i<TT; i++) {
+          plotdat3[i+nobs] = [
+            dta.AusgabespielraumQuote.time[i]+T0, 
+            [null, null, null],
+            [dta.AusgabespielraumQuote.p05[i], dta.AusgabespielraumQuote.median[i], dta.AusgabespielraumQuote.p95[i]],
+            [null, null, null]
+          ]
+        }
+        // berechne bounds der Grafiken
+        var asq_max = Math.max(
+          Math.max(...dta.AusgabespielraumQuote.p95)
+        );
+        asq_max = 5*Math.ceil(asq_max/5);
+        var asq_min = Math.max(
+          Math.max(...dta.AusgabespielraumQuote.p05)
+        );
+        asq_min = 5*Math.floor(asq_min/5);
         
         g1 = new Dygraph(
           
@@ -207,6 +236,58 @@
             },
             title: "Zins-Steuer-Quote",
             titleHeight: 25,
+          }
+        );
+
+      g3 = new Dygraph(
+          
+          // containing div
+          document.getElementById("graphdiv3"),
+          
+          // native array format
+          plotdat3,
+          
+          // options
+          {
+            labels: [ "Zeit", "historisch", "Median", "langfr. Gleichgewicht"],
+            labelsDiv: "graphlabel3",
+            //hideOverlayOnMouseOut: true,
+            legend: "always",
+            customBars: true,
+            interactionModel: {}, // prevent zoom an pan
+            series: {
+              'historisch': {
+                strokeWidth: 1.5,
+                color: "rgb(128,0,0)",
+              },
+              'Median': {
+                strokeWidth: 1.5,
+                strokePattern: [2,5],
+                color: "rgb(128,0,0)",
+              },
+              'langfr. Gleichgewicht': {
+                strokeWidth: 1.0,
+                strokePattern: [5,2],
+                color: "rgb(128,0,0)",
+              }
+            },
+            axes: {
+              x: {
+                drawAxis: true,
+                drawGrid: false,
+                valueFormatter: function(y) {return y.toFixed(0)},
+                axisLabelFormatter: function(y) {return y.toFixed(0)},
+              },
+              y: {
+                drawGrid: true,
+                valueRange: [asq_min,asq_max],
+                valueFormatter: function(y) {return y.toFixed(1)},
+                axisLabelFormatter: function(y) {return y.toFixed(0)},
+              }
+            },
+            title: "Ausgabespielraum",
+            titleHeight: 25,
+            ylabel: "% der Steuereinnahmen",
           }
         );
 
