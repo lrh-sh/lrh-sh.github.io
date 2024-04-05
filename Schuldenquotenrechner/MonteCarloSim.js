@@ -92,8 +92,10 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
     var Bt; // nominaler Schuldenstand
     var bt = Array(TT); // Schuldenquote in % des BIP
     var itr = Array(TT); // Zins-Steuer-Quote in %
+    var asp = Array(TT); // Ausgabespielraum-Quote anteilig an den Steuereinnahmen
     var rt; // Marktzins in %
     var it; // Durchschnittszins in %
+    var Zt; // Zinszahlungen nominal
     const a1 = 0.9483; // parameter für AR(1) Prozess des Marktzinses
     const a0 = r_bar * (1-a1); // parameter für AR(1) Prozess
     const eps_sd = 0.71888; // S.D. des Fehlerterms im AR(1) Modell des Marktzinses
@@ -145,6 +147,7 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         
         // da Durchschnittszins sich auf Bt-1 bezieht, berechne Zins-Steuer-Quote
         // zuerst, bevor, Bt und it aktualisiert werden
+        Zt = Bt*it/100;
         itr[t] = Bt*it / (Yt*tyr) * 100; // = Bt * it / 100 / (Yt*tyr/100) * 100
         
         // sehr einfaches Modell für Markt- und Durchschnittszins (beide in %, d.h. 3.0%)
@@ -169,12 +172,16 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         // Bewegungsgeleichung nominaler Schuldenstand mit NK und Tilgung
         Bt += d*Yt + Xt - Tilgung_t;
         bt[t] = Bt / Yt * 100;
+
+        // Ausgabespielraum = Steuern + reguläres Defizit - Tilgung - Zinsausgaben
+        asp[t] = ( 1 + (d*Yt - Tilgung_t - Zt) / (Yt*tyr/100) ) * 100 ;
     }
 
     // return both results as an object
     return {
         Schuldenquote: bt,
-        ZinsSteuerQuote: itr
+        ZinsSteuerQuote: itr,
+        AusgabespielraumQuote: asp
     }
 }
 // oneSim(25.6, 2.8, 2.2, 0.4, 0.0, 1, 0, 0.5, 1, 1.38, 2.48, 0.0, 15, 10.75,50).Schuldenquote
@@ -205,8 +212,10 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
     // initialize result arrays
     var b_sim = Array(Nsim);
     var itr_sim = Array(Nsim);
+    var asp_sim = Array(Nsim);
     var b_ti = Array(Nsim);
     var itr_ti = Array(Nsim);
+    var asp_ti = Array(Nsim);
     var bt_stats = {
         time: Array(TT),
         median: Array(TT),
@@ -217,6 +226,15 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         sample: Array(TT),
     };
     var itr_stats = {
+        time: Array(TT),
+        median: Array(TT),
+        min: Array(TT),
+        max: Array(TT),
+        p05: Array(TT),
+        p95: Array(TT),
+        sample: Array(TT),
+    };
+    var asp_stats = {
         time: Array(TT),
         median: Array(TT),
         min: Array(TT),
@@ -236,6 +254,7 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
                      TT);
         b_sim[i] = res.Schuldenquote.map((x) => x); // properly copying the array by value
         itr_sim[i] = res.ZinsSteuerQuote.map((x) => x);
+        asp_sim[i] = res.AusgabespielraumQuote.map((x) => x);
         //console.log(`b_sim[${i}].length = ${b_sim[i].length}`);
         //console.log(`b_sim[${i}][0] = ${b_sim[i][0]}`);
     }
@@ -247,23 +266,27 @@ function MCsim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         //console.log(`### compute stats for time period ${t} ###`)
         bt_stats.time[t] = t+1; // indices start at 0, but first element is already simulated
         itr_stats.time[t] = t+1;
+        asp_stats.time[t] = t+1;
 
         // fetch simulation results for time period t
         for (let i=0; i<Nsim; i++) { 
             //console.log(`### fetch simulation result for round ${i} in period ${t} ###`)
             b_ti[i] = b_sim[i][t];
             itr_ti[i] = itr_sim[i][t];
+            asp_ti[i] = asp_sim[i][t];
         }
 
         // ... and compute stats
         
         computeStats(bt_stats, b_ti, t);
         computeStats(itr_stats, itr_ti, t);
+        computeStats(asp_stats, asp_ti, t);
     }
 
     return {
         Schuldenquote: bt_stats,
-        ZinsSteuerQuote: itr_stats
+        ZinsSteuerQuote: itr_stats,
+        AusgabespielraumQuote: asp_stats
     };
 }
 
@@ -289,7 +312,7 @@ function testResult() {
     console.log(`Long run steady state: ${lrss}`);
     console.log(`Schuldenquote: ${oneResult.Schuldenquote}`);
     console.log(`Zins-Steuer-Quote: ${oneResult.ZinsSteuerQuote}`);
-
+    console.log(`Zins-Steuer-Quote: ${oneResult.AusgabespielraumQuote}`);
     return {
         oneMSsim: oneResult,
         lrss: lrss
