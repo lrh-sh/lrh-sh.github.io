@@ -126,10 +126,12 @@
         }
         // berechne bounds der Grafiken
         var asq_max = Math.max(
+          110,
           Math.max(...dta.AusgabespielraumQuote.p95)
         );
         asq_max = 5*Math.ceil(asq_max/5);
         var asq_min = Math.max(
+          85,
           Math.min(...dta.AusgabespielraumQuote.p05)
         );
         asq_min = 5*Math.floor(asq_min/5);
