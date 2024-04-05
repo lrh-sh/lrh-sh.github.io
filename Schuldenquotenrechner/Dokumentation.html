@@ -3,10 +3,10 @@
     <h2>Nicht-technische Zusammenfassung</h2>
 
     <p>
-	    Diese Webapp wurde entwickelt, um Vorschläge zur Reform der Schuldenbremse hinsichtlich ihrer 
-	    Auswirkungen auf die Schuldentragfähigkeit zu untersuchen. Dazu kann der Benutzer verschiedene 
+	    Diese Webapp wurde entwickelt, um aktuell diskutierte Vorschläge zur Reform der Schuldenbremse hinsichtlich ihrer 
+	    Auswirkungen auf die Schuldentragfähigkeit zu untersuchen. Dazu kann der Benutzer oder die Benutzerin verschiedene 
     	Schlüsselparameter eingeben, wie etwa die Höhe der regulären Verschuldungsgrenze oder die 
-    	Häufigkeit der Notkredit-Inanspruchnahme. Die Webapp berechnet anhand dieser Annahmen, wie 
+    	Häufigkeit einer Notkredit-Inanspruchnahme. Die Webapp berechnet anhand dieser Annahmen, wie 
     	sich die Schuldenquote und die Zins-Steuer-Quote in Zukunft entwickeln. Die Schuldenquote 
     	ist dabei der Anteil des Schuldenstandes an der schleswig-holsteinischen Wirtschaftsleistung 
     	(BIP) in Prozent. Für die Zinsbelastung im Haushalt ist die Zins-Steuer-Quote eine wichtige Größe. 
@@ -14,7 +14,7 @@
     	Zinsentwicklung und über die Höhe der Steuereinnahmen.
     </p>
 
-    <p>Der Benutzer kann folgende Parameter frei wählen:</p>
+    <p>Der Benutzer kann folgende Parameter frei wählen:
     <table class="table-secondary table-striped">
       <thead>
         <tr class="table-primary">
@@ -27,11 +27,11 @@
         <tr>
           <td>reguläres Defizit</td>
           <td>0% des BIP</td>
-          <td>Status Quo unter der derzeitigen Schuldenbremse</td>
+          <td>Status quo unter der derzeitigen Schuldenbremse</td>
         </tr>
         <tr>
             <td>nominales BIP-Wachstum</td>
-            <td>2,8% p.a.</td>
+            <td>2,8% p.a. <br> (Ø '91-'23) </td>
             <td>Das nominale BIP-Wachstum setzt sich näherungsweise aus dem realen Wachstum und der Inflationsrate zusammen.</td>
         </tr>
           <tr>
@@ -47,15 +47,17 @@
           <tr>
               <td>Höhe des Notkredites</td>
               <td>1% des BIP</td>
-              <td>mittlere Höhe des Notkredites, sofern er in Anspruch genommen wird</td>
+              <td>mittlere Höhe eines Notkredites, sofern er in Anspruch genommen wird</td>
           </tr>
           <tr>
               <td>Tilgungsdauer</td>
               <td>40 Jahre</td>
-              <td>Annahmegemäß werden Notkredite linear über einen Zeitraum von X Jahren „getilgt“.</td>
+              <td>Annahmegemäß werden Notkredite linear über einen Zeitraum von X Jahren getilgt.</td>
           </tr>
       </tbody>
     </table>
+    </p>
+
     <h2>Technische Modellbeschreibung</h2>
 
     <p>
@@ -79,7 +81,7 @@
 	unterstellt. In der Monte-Carlo Simulation wird in jeder Simulationsrunde ein neuer Wert für 
 	\( g \) aus dieser Verteilung gezogen. In kurzen Zeiträumen ist die Unsicherheit
 	über die mittlere Wachstumsrate vernachlässigbar, auf lange Frist spielt sie
-	aber eine große Rolle.
+	aber eine größere Rolle.
     </p>
 
     <p>
@@ -201,10 +203,10 @@
 	Bei der Kreditaufnahme müssen auch sämtliche sonstigen Schuldenaufnahmen des Landes und Verbindlichkeiten
 	des Landes berücksichtigt werden, etwa in ausgelagerten Nebenhaushalten.
 	Beträgt die mittlere Nettokreditaufnahme etwa 0,3% des BIP, was derzeit etwa 350 Mio. € wären, 
-	würde die Zins-Steuer-Quote langfristig etwa \( 0,3\% \div 11\% = 2,7\% \) betragen. Ist \( r \neq g \) kommt
+	würde die Zins-Steuer-Quote langfristig etwa 0,3% ÷ 11% = 2,7% betragen. Ist \( r \neq g \), kommt
 	zu diesem Wert noch die Zins-Wachstums-Differenz hinzu. Ist beispielsweise der Zinssatz 1 Prozentpunkt
 	höher als die nominale Wachstumsrate, beträgt die Zins-Steuer-Quote im langfristigen Mittel etwa 3,7%.
-    Über kürzere Zeiträume kann Zins-Steuer-Quote natürlic erheblich schwanken und auch deutlich größere
+    Über kürzere Zeiträume kann die Zins-Steuer-Quote natürlich erheblich schwanken und auch deutlich größere
     Werte annehmen.
     </p>
 
