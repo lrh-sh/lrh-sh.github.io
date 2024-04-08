@@ -146,13 +146,14 @@ function oneSim(b0=28, g_mean=2.8, g_sd=2.2, g_se=0, d=0,
         // Zins-Steuer-Quote
         
         // da Durchschnittszins sich auf Bt-1 bezieht, berechne Zins-Steuer-Quote
-        // zuerst, bevor, Bt und it aktualisiert werden
-        Zt = Bt*it/100;
-        itr[t] = Bt*it / (Yt*tyr) * 100; // = Bt * it / 100 / (Yt*tyr/100) * 100
+        // zuerst, bevor, Bt aktualisiert wird
         
         // sehr einfaches Modell für Markt- und Durchschnittszins (beide in %, d.h. 3.0%)
         rt = Math.max(a0 + a1*rt + randomNormal(0, eps_sd), -0.5);
         it = (1*rt + (mat-1)*it)/mat;
+
+        Zt = Bt*it/100;
+        itr[t] = Bt*it / (Yt*tyr) * 100; // = Bt * it / 100 / (Yt*tyr/100) * 100
 
         
         

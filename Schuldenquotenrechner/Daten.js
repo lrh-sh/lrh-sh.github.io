@@ -8,7 +8,7 @@ const histdata = {
 // definiere Startwerte
 // todo: berechne aus Input-Daten
 const b0 = 26.07; // Schuldenquote 2023 mit überschlägigem BIP-SH
-const r0 = 2.48; // durchschn. Umlaufsrendite Bundeswertpapiere RLZ 8-15J.
+const r0 = 3.06; // durchschn. Umlaufsrendite Bundesländer RLZ 9-10J in 2023
 const i0 = 1.38; // durchschn. Verzinsung SH-Schulden 2023
 const tyr= 10.77;// durchschn. Zins-Steuer-Quote 2015 - 2023
 const T0 = 2023;
