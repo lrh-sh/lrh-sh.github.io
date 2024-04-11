@@ -52,7 +52,7 @@
         // Schuldenquoten-Daten
         var plotdat1 = Array(nobs+TT);
         // fill historical data
-        for (let i=10; i<nobs; i++) {
+        for (let i=0; i<nobs; i++) {
           plotdat1[i] = [histdata.Jahr[i], 
                         [null, histdata.Schuldenquote[i], null], // historische Schuldenquote
                         [null, null, null], // Platzhalter für Median
@@ -82,7 +82,7 @@
         
         var plotdat2 = Array(nobs+TT);
         // fill historical data
-        for (let i=10; i<nobs; i++) {
+        for (let i=0; i<nobs; i++) {
           plotdat2[i] = [
             histdata.Jahr[i], 
             [null, histdata.ZinsSteuerQuote[i], null],
@@ -108,7 +108,7 @@
         // Ausgabespielraum-Daten
         var plotdat3 = Array(nobs+TT);
         // fill historical data
-        for (let i=10; i<nobs; i++) {
+        for (let i=0; i<nobs; i++) {
           plotdat3[i] = [
             histdata.Jahr[i], 
             [null, histdata.AusgabespielraumQuote[i], null], // historisch
