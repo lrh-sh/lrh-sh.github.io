@@ -111,7 +111,7 @@
         for (let i=0; i<nobs; i++) {
           plotdat3[i] = [
             histdata.Jahr[i], 
-            [null, dta.AusgabespielraumQuote[i], null], // historisch
+            [null, histdata.AusgabespielraumQuote[i], null], // historisch
             [null, null, null], // Platzhalter für Median
             [null, null, null] // Platzhalter für long run steady state
           ]
