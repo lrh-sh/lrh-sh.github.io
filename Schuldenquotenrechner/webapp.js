@@ -24,7 +24,7 @@
       }
 
       function updateSimulation() {
-        //console.log("Hello from updateSimulation()!")
+        console.log("Hello from updateSimulation()!")
         let x_prob = 1/parms.excess_time.value;
         // compute MC sim
         res = MCsim(
@@ -295,4 +295,11 @@
 
         // synchronize the charts
         var sync = Dygraph.synchronize(g1, g2);
+      }
+
+      function resetSimulation() {
+        for (const i in parms) { // for .. in iterates over elements of an object
+          parms[i].value = parms[i].defaultValue; 
+        }    
+        updateSimulation();
       }

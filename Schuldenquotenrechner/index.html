@@ -134,8 +134,9 @@
     for (const i in parms) { // for .. in iterates over elements of an object
       //parms[i].addEventListener('input', updateLRSS);
       parms[i].addEventListener('change', updateSimulation); // use change instead, possible reason for crash on ios after active slider usage
+      parms[i].defaultValue = parms[i].value; // read initial values which are hardcoded in html as default values
     }    
-
+    document.getElementById("resetButton").addEventListener("click", resetSimulation);
     setTimeout(updateSimulation, 100);
   }
 
