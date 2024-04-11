@@ -52,7 +52,7 @@
         // Schuldenquoten-Daten
         var plotdat1 = Array(nobs+TT);
         // fill historical data
-        for (let i=0; i<nobs; i++) {
+        for (let i=10; i<nobs; i++) {
           plotdat1[i] = [histdata.Jahr[i], 
                         [null, histdata.Schuldenquote[i], null], // historische Schuldenquote
                         [null, null, null], // Platzhalter für Median
@@ -82,7 +82,7 @@
         
         var plotdat2 = Array(nobs+TT);
         // fill historical data
-        for (let i=0; i<nobs; i++) {
+        for (let i=10; i<nobs; i++) {
           plotdat2[i] = [
             histdata.Jahr[i], 
             [null, histdata.ZinsSteuerQuote[i], null],
@@ -100,7 +100,7 @@
         }
         // berechne bounds der Grafiken
         var zsq_max = Math.max(
-          Math.max(...histdata.ZinsSteuerQuote),
+          20,
           Math.max(...dta.ZinsSteuerQuote.p95)
         );
         zsq_max = 5*Math.ceil(zsq_max/5);
@@ -108,7 +108,7 @@
         // Ausgabespielraum-Daten
         var plotdat3 = Array(nobs+TT);
         // fill historical data
-        for (let i=0; i<nobs; i++) {
+        for (let i=10; i<nobs; i++) {
           plotdat3[i] = [
             histdata.Jahr[i], 
             [null, histdata.AusgabespielraumQuote[i], null], // historisch
@@ -126,15 +126,16 @@
         }
         // berechne bounds der Grafiken
         var asq_max = Math.max(
-          110,
+          120,
           Math.max(...dta.AusgabespielraumQuote.p95)
         );
         asq_max = 5*Math.ceil(asq_max/5);
-        var asq_min = Math.max(
+        var asq_min = Math.min(
           85,
           Math.min(...dta.AusgabespielraumQuote.p05)
         );
         asq_min = 5*Math.floor(asq_min/5);
+        asq_max = 5*Math.ceil(asq_max/5);
         
         g1 = new Dygraph(
           
@@ -289,7 +290,7 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            title: "Ausgabespielraum<br><small><abbr title='Steuereinnahmen'>Steuern</abbr> + <abbr title='reguläre Nettokreditaufnahme'>NKA</abbr> - Notkredit-Tilgung - Zinsausgaben</small>",
+            title: "<abbr title='= Steuern + reguläres Defizit - Notkredit-Tilgung - Zinsen'>Ausgabespielraum</abbr>",
             titleHeight: 25,
             ylabel: "% der Steuereinnahmen",
           }
