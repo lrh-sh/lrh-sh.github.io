@@ -111,7 +111,7 @@
         for (let i=0; i<nobs; i++) {
           plotdat3[i] = [
             histdata.Jahr[i], 
-            [null, null, null],
+            [null, dta.AusgabespielraumQuote[i], null], // historisch
             [null, null, null], // Platzhalter für Median
             [null, null, null] // Platzhalter für long run steady state
           ]
@@ -185,8 +185,9 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            title: "Schuldenquote [% des BIP]",
+            title: "Schuldenquote",
             titleHeight: 25,
+            ylabel: "% des Bruttoinlandsproduktes",
           }
         );
 
@@ -238,6 +239,7 @@
             },
             title: "Zins-Steuer-Quote",
             titleHeight: 25,
+            ylabel: "% der Steuereinnahmen",
           }
         );
 
@@ -287,14 +289,14 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            title: "Ausgabespielraum",
+            title: "Ausgabespielraum<br><small><abbr title='Steuereinnahmen'>Steuern</abbr> + <abbr title='reguläre Nettokreditaufnahme'>NKA</abbr> - Notkredit-Tilgung - Zinsausgaben</small>",
             titleHeight: 25,
             ylabel: "% der Steuereinnahmen",
           }
         );
 
         // synchronize the charts
-        var sync = Dygraph.synchronize(g1, g2);
+        var sync = Dygraph.synchronize(g1, g2, g3);
       }
 
       function resetSimulation() {
