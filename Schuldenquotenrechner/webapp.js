@@ -300,6 +300,7 @@
       function resetSimulation() {
         for (const i in parms) { // for .. in iterates over elements of an object
           parms[i].value = parms[i].defaultValue; 
+          document.getElementById(parms[i].name+'.output').value = parms[i].value; // also reset the data output text
         }    
         updateSimulation();
       }
