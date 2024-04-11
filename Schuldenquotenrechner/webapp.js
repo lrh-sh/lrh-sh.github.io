@@ -24,7 +24,7 @@
       }
 
       function updateSimulation() {
-        console.log("Hello from updateSimulation()!")
+        //console.log("Hello from updateSimulation()!")
         let x_prob = 1/parms.excess_time.value;
         // compute MC sim
         res = MCsim(

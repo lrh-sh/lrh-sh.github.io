@@ -142,8 +142,8 @@
 
   function loadWebApp() {
     initWebApp();
-    setTimeout(startWebApp, 300); // seems to be important to wait lest parms is not yet bound to newly loaded html objects
-    setTimeout(updateSimulation, 100);
+    setTimeout(startWebApp, 50); // seems to be important to wait lest parms is not yet bound to newly loaded html objects
+    setTimeout(updateSimulation, 60); // timeout must be larger than previous timeout so that parms are already bound to DOM objects
   }
 
   window.onload = function() {
