@@ -141,7 +141,7 @@
   }
 
   function loadWebApp() {
-    loadPage('./Dokumentation.html')
+    loadPage('./webapp.html')
       .then(() => startWebApp()) // seems to be important to wait lest parms is not yet bound to newly loaded html objects
       .then(() => updateSimulation()); // timeout must be larger than previous timeout so that parms are already bound to DOM objects
   }
