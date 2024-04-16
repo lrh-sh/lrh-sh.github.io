@@ -1,6 +1,8 @@
 <!-- see https://www.imatheq.com/imatheq/com/imatheq/math-equation-editor-latex-mathml.html -->
 <div class="row bg-light">
-    <h2>Nicht-technische Zusammenfassung</h2>
+    <h2>Schuldenquotenrechner für Schleswig-Holstein</h2>
+
+    <h3>Nicht-technische Zusammenfassung</h3>
 
     <p>
 	    Diese Webapp wurde entwickelt, um aktuell diskutierte Vorschläge zur Reform der Schuldenbremse hinsichtlich ihrer 
@@ -12,6 +14,12 @@
     	(BIP) in Prozent. Für die Zinsbelastung im Haushalt ist die Zins-Steuer-Quote eine wichtige Größe. 
     	Sie hängt direkt von der Schuldenquote ab, erfordert aber zudem eine Annahme über die 
     	Zinsentwicklung und über die Höhe der Steuereinnahmen.
+
+        Um die Unsicherheit über den künftigen Verlauf der Schuldenquote und der Zins-Steuer-Quote abzubilden,
+        berechnet dieser Schuldenquotenrechner eine sogenannte Monte-Carlo-Simulation. Dabei wird die Entwicklung
+        beider Größen in einer Vielzahl unterschiedlicher Verläufe simuliert. In jedem Durchlauf wird ein leicht
+        abweichender Verlauf des nominalen Bruttoinlandsprodukts, des Zinssatzes und der Notkredit-Inanspruchnahme
+        erzeugt.
     </p>
 
     <p>Der Benutzer kann folgende Parameter frei wählen:
@@ -37,7 +45,7 @@
           <tr>
               <td>Nominalzins</td>
               <td>3,0% p.a.</td>
-              <td>Mitterer Nominalzins, zu dem das Land sich am Kapitalmarkt langfristig verschulden kann.</td>
+              <td>Mittlerer Nominalzins, zu dem das Land sich am Kapitalmarkt langfristig verschulden kann.</td>
           </tr>
           <tr>
               <td>Häufigkeit des Notkredits</td>
@@ -58,7 +66,7 @@
     </table>
     </p>
 
-    <h2>Technische Modellbeschreibung</h2>
+    <h3>Technische Modellbeschreibung</h3>
 
     <p>
         Das nominale Bruttoinlandsprodukt Schleswig-Holsteins \( Y_t \) entwickelt sich gemäß
@@ -111,7 +119,7 @@
         In Verbindung mit der Bewegungsgleichung für das BIP lässt sich der Ausdruck für die Schuldenquote   
         \( b_t \) wie folgt aufstellen:
 	\[
-		b_{t+1} = \frac{1}{1+g_t} b_t + d_{t+1} + x_{t+1} - \frac{1}{K} \sum_{\tau=1}^K 
+		b_{t+1} = \frac{1}{1+g_{t+1}} b_t + d_{t+1} + x_{t+1} - \frac{1}{K} \sum_{\tau=1}^K 
 			\frac{ x_{t+1-\tau} }{ \prod_{j=1}^\tau 1+g_{t+2-j} }
 	\]
         wobei \(d_t\) und \(x_t \) die Pendants zu \(D_t\) und \(X_t\) als Anteile am BIP sind.

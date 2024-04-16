@@ -60,7 +60,7 @@
 
         <div class="navbar-header">
           <a class="navbar-brand" href="#" onclick="loadWebApp()">
-            Schuldenquotenrechner
+            Schuldenquotenrechner für SH
           </a>
         </div>
 
@@ -101,7 +101,7 @@
 <script>
   // Lade content der subpages
   function loadPage(page) {
-    fetch(page)
+    return fetch(page)
       .then(response => response.text())
       .then(html => document.getElementById('content').innerHTML = html)
       .catch(error => console.error('Error loading page:', error));
@@ -109,8 +109,8 @@
 
   // lade Dokumentation
   function loadDocumentation() {
-    loadPage('./Dokumentation.html');
-    setTimeout(MathJax.typesetPromise, 300); // see https://docs.mathjax.org/en/latest/advanced/typeset.html
+    loadPage('./Dokumentation.html')
+      .then(() => MathJax.typesetPromise());
   }
 
   // Lade Webapp
@@ -134,15 +134,16 @@
     for (const i in parms) { // for .. in iterates over elements of an object
       //parms[i].addEventListener('input', updateLRSS);
       parms[i].addEventListener('change', updateSimulation); // use change instead, possible reason for crash on ios after active slider usage
+      parms[i].defaultValue = parms[i].value; // read initial values which are hardcoded in html as default values
     }    
-
-    setTimeout(updateSimulation, 100);
+    document.getElementById("resetButton").addEventListener("click", resetSimulation);
+    //setTimeout(updateSimulation, 100);
   }
 
   function loadWebApp() {
-    initWebApp();
-    setTimeout(startWebApp, 300); // seems to be important to wait lest parms is not yet bound to newly loaded html objects
-    setTimeout(updateSimulation, 100);
+    loadPage('./webapp.html')
+      .then(() => startWebApp()) // seems to be important to wait lest parms is not yet bound to newly loaded html objects
+      .then(() => updateSimulation()); // timeout must be larger than previous timeout so that parms are already bound to DOM objects
   }
 
   window.onload = function() {

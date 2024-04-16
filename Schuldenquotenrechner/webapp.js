@@ -100,7 +100,7 @@
         }
         // berechne bounds der Grafiken
         var zsq_max = Math.max(
-          Math.max(...histdata.ZinsSteuerQuote),
+          20,
           Math.max(...dta.ZinsSteuerQuote.p95)
         );
         zsq_max = 5*Math.ceil(zsq_max/5);
@@ -111,7 +111,7 @@
         for (let i=0; i<nobs; i++) {
           plotdat3[i] = [
             histdata.Jahr[i], 
-            [null, null, null],
+            [null, histdata.AusgabespielraumQuote[i], null], // historisch
             [null, null, null], // Platzhalter für Median
             [null, null, null] // Platzhalter für long run steady state
           ]
@@ -126,15 +126,16 @@
         }
         // berechne bounds der Grafiken
         var asq_max = Math.max(
-          110,
+          120,
           Math.max(...dta.AusgabespielraumQuote.p95)
         );
         asq_max = 5*Math.ceil(asq_max/5);
-        var asq_min = Math.max(
+        var asq_min = Math.min(
           85,
           Math.min(...dta.AusgabespielraumQuote.p05)
         );
         asq_min = 5*Math.floor(asq_min/5);
+        asq_max = 5*Math.ceil(asq_max/5);
         
         g1 = new Dygraph(
           
@@ -185,8 +186,9 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            title: "Schuldenquote [% des BIP]",
+            title: "Schuldenquote",
             titleHeight: 25,
+            ylabel: "% des Bruttoinlandsproduktes",
           }
         );
 
@@ -238,6 +240,7 @@
             },
             title: "Zins-Steuer-Quote",
             titleHeight: 25,
+            ylabel: "% der Steuereinnahmen",
           }
         );
 
@@ -287,12 +290,20 @@
                 axisLabelFormatter: function(y) {return y.toFixed(0)},
               }
             },
-            title: "Ausgabespielraum",
+            title: "<abbr title='= Steuern + reguläres Defizit - Notkredit-Tilgung - Zinsen'>Ausgabespielraum</abbr>",
             titleHeight: 25,
             ylabel: "% der Steuereinnahmen",
           }
         );
 
         // synchronize the charts
-        var sync = Dygraph.synchronize(g1, g2);
+        var sync = Dygraph.synchronize(g1, g2, g3);
+      }
+
+      function resetSimulation() {
+        for (const i in parms) { // for .. in iterates over elements of an object
+          parms[i].value = parms[i].defaultValue; 
+          document.getElementById(parms[i].name+'.output').value = parms[i].value; // also reset the data output text
+        }    
+        updateSimulation();
       }
