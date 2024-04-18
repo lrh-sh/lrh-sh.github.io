@@ -48,7 +48,7 @@
               <td>Mittlerer Nominalzins, zu dem das Land sich am Kapitalmarkt langfristig verschulden kann.</td>
           </tr>
           <tr>
-              <td>Häufigkeit des Notkredits</td>
+              <td>Häufigkeit des Notkredites</td>
               <td>alle 5 Jahre</td>
               <td>mittlere Häufigkeit, mit der ein Notkredit in Anspruch genommen wird.</td>
           </tr>
@@ -80,7 +80,7 @@
 	Wachstumsprozess einer Parameterunsicherheit. Die Varianz des Schätzers für die
 	mittlere Wachstumsrate beträgt \( \frac{1}{n} \sigma_g^2 \), wobei \( n \)
 	die Anzahl der beobachteten Wachstumsraten ist. 
-	Für den Parameter \(\sigma_g\) wird ein Wertvon 2,2% p.a. eingestellt,
+	Für den Parameter \(\sigma_g\) wird ein Wert von 2,2% p.a. eingestellt,
    	was der Standardabweichung der nominalen Wachstumsraten zwischen 1991 und 2023 entspricht.
 	Um der Parameterunsicherheit über den Wachstumsprozess Rechnung zu tragen, wird
 	\[
@@ -160,7 +160,7 @@
 	\]
         unterstellt. Die Parameter \(\alpha_1=0.9483\) und \(\kappa=0.7189\) wurden anhand eines einfachen 
 	autoregressiven Modells empirisch ermittelt. Der Parameter \(\alpha_0 = \bar{r}(1-\alpha_1) \)
-        wird so gesetzt, dass der Erwartungswert des Zinssatzes dem vom Benutzer eingegebenen Wertes für 
+        wird so gesetzt, dass der Erwartungswert des Zinssatzes dem vom Benutzer eingegebenen Wert für 
 	den Nominalzins entspricht. Aus Konsistenzgründen wird \( r_t > -0.5\% \) festgelegt.
     </p>
     <p>
@@ -176,13 +176,13 @@
         gilt. Dies spiegelt den Fakt wieder, dass das Land sich recht langfristig verschuldet hat, so dass Zinsänderungen sich nur graduell auf die Zinsausgaben auswirken. 
         In erster Näherung entwickelt sich die durchschnittliche Verzinsung gemäß obiger Gleichung, wenn sich das Land stets nur mit einer Laufzeit von 15 Jahren verschulden würde. 
         Dies führt zu einer durchschnittlichen Restlaufzeit im Kreditportfolio von 8 Jahren, was ungefähr dem tatsächlich beobachteten Wert entspricht. 
-        In der Realität ist die Dynamik natürlich komplexer und hängt eher von einem gewichteten Mittelwert der vergangenen Kapitalmarktzinsen ab. 
+        In der Realität ist die Dynamik naturgemäß komplexer und hängt eher von einem gewichteten Mittelwert der vergangenen Kapitalmarktzinsen ab. 
         Obiges Modell ist aber für diese Zwecke ausreichend. Insbesondere gilt \( \mathbb{E}[i_t] = \mathbb{E}[r_t] = \bar{r} \),
 	die durchschnittliche Verzinsung entspricht im langjährigen Mittel also dem Erwartungswert des Kapitalmarktzinses.
     </p>
 
     <p>
-        Die Steuereinnahmen entsprechen annahmegemäß einem konstanten Anteil \(\gamma\) des Schleswig-Holsteinischen BIP.
+        Die Steuereinnahmen entsprechen annahmegemäß einem konstanten Anteil \(\gamma\) des schleswig-holsteinischen BIP.
         Der Wert für \(\gamma=10.77\%\) entspricht dem Durchschnitt in Schleswig-Holstein in den Jahren 2015 bis 2023. 
         Tatsächlich hängen die Steuereinnahmen aufgrund des Finanzausgleichs eher vom bundesweiten als vom schleswig-holsteinischen BIP 
         sowie von der Einwohnerentwicklung ab. Wächst das bundesweite BIP schneller als das schleswig-holsteinische, 
@@ -208,7 +208,7 @@
 	dass der mittlere Zinssatz in etwa dem mittleren nominalen Wachstum entspricht, so ergibt sich die 
 	gleichgewichtige Zins-Steuer-Quote als Quotient der mittleren Nettokreditaufnahme (inkl. Notkredit
 	und Notkredit-Tilgungen) und der Steuerquote relativ zum BIP (derzeit rund 11%). 
-	Bei der Kreditaufnahme müssen auch sämtliche sonstigen Schuldenaufnahmen des Landes und Verbindlichkeiten
+	Bei der Kreditaufnahme müssen auch sämtliche sonstigen Schuldenaufnahmen und Verbindlichkeiten
 	des Landes berücksichtigt werden, etwa in ausgelagerten Nebenhaushalten.
 	Beträgt die mittlere Nettokreditaufnahme etwa 0,3% des BIP, was derzeit etwa 350 Mio. € wären, 
 	würde die Zins-Steuer-Quote langfristig etwa 0,3% ÷ 11% = 2,7% betragen. Ist \( r \neq g \), kommt
@@ -219,7 +219,7 @@
     </p>
 
     <p>
-	Da Modell wird simuliert, indem wiederholt Werte für \(g_t\), \(\epsilon_t\), \(\xi_t\) und \(u_t\) gezogen werden.
+	Das Modell wird simuliert, indem wiederholt Werte für \(g_t\), \(\epsilon_t\), \(\xi_t\) und \(u_t\) gezogen werden.
 	Ausgehend von Startwerten \( b_0 \), \( r_0 \) und \( i_t \) lassen sich dann die obigen Ausdrücke für 
 	\( b_t \), \(r_t \), \( i_t \) und \( z_t \) fortschreiben. Standardmäßig werden \( M=250 \) Simulationsrunden
 	durchgeführt, der Benutzer kann dies aber auf bis zu \( 1000 \) Runden erhöhen.
